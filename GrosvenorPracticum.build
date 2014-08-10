@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="BuildAll">
+
+  <UsingTask AssemblyFile="$(MSBuildStartupDirectory)\packages\MSBuildTasks.1.4.0.74\tools\MSBuild.Community.Tasks.dll" TaskName="NUnit"/>
+
+  <PropertyGroup>
+    <WorkingFolder>$(MSBuildProjectDirectory)</WorkingFolder>    
+    <Configuration>Release</Configuration>
+    <SolutionFile>GrosvenorPracticum.sln</SolutionFile>
+    <NUnitPath>c:\Program Files (x86)\NUnit 2.6.3\bin\</NUnitPath>
+    <NUnitLog>UnitTests-Results.xml</NUnitLog>
+  </PropertyGroup>  
+  
+  <Target Name="BuildAll" DependsOnTargets="Compile;Test" />  
+
+  <Target Name="Compile">
+    <Message Text="=== COMPILING $(Configuration) configuration ===" />
+    <MSBuild Projects="$(SolutionFile)" Properties="Configuration=$(Configuration)" />
+  </Target>  
+    
+  <Target Name="Test">
+    <Message Text="=== RUNNING UNIT TESTS ==="/>
+     <ItemGroup>
+      <TestAssembly Include="GrosvenorPracticum.Tests\bin\Release\GrosvenorPracticum.Tests.dll" />
+      <TestAssembly Include="GrosvenorPracticum-DAL.Tests\bin\Release\GrosvenorPracticum-DAL.Tests.dll" />
+      <TestAssembly Include="GrosvenorPracticum-BL.Tests\bin\Release\GrosvenorPracticum-BL.Tests.dll" />
+    </ItemGroup>
+    <NUnit Assemblies="@(TestAssembly)" ToolPath="$(NUnitPath)" DisableShadowCopy="true" OutputXmlFile="$(NUnitLog)"/>
+  </Target>
+
+</Project>

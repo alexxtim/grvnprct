@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FoodServiceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FoodServiceModelStoreContainer">
+    <EntitySet Name="DishTypeEntities" EntityType="FoodServiceModel.Store.DishTypeEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DayTimeEntities" EntityType="FoodServiceModel.Store.DayTimeEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DishEntities" EntityType="FoodServiceModel.Store.DishEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DayTimeDishEntities" EntityType="FoodServiceModel.Store.DayTimeDishEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DishTypeDishEntities" EntityType="FoodServiceModel.Store.DishTypeDishEntities" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="DishDayTimeDish" Association="FoodServiceModel.Store.DishDayTimeDish">
+      <End Role="Dish" EntitySet="DishEntities" />
+      <End Role="DayTimeDish" EntitySet="DayTimeDishEntities" />
+    </AssociationSet>
+    <AssociationSet Name="DayTimeDayTimeDish" Association="FoodServiceModel.Store.DayTimeDayTimeDish">
+      <End Role="DayTime" EntitySet="DayTimeEntities" />
+      <End Role="DayTimeDish" EntitySet="DayTimeDishEntities" />
+    </AssociationSet>
+    <AssociationSet Name="DishTypeEntityDishTypeDishEntity" Association="FoodServiceModel.Store.DishTypeEntityDishTypeDishEntity">
+      <End Role="DishTypeEntity" EntitySet="DishTypeEntities" />
+      <End Role="DishTypeDishEntity" EntitySet="DishTypeDishEntities" />
+    </AssociationSet>
+    <AssociationSet Name="DishEntityDishTypeDishEntity" Association="FoodServiceModel.Store.DishEntityDishTypeDishEntity">
+      <End Role="DishEntity" EntitySet="DishEntities" />
+      <End Role="DishTypeDishEntity" EntitySet="DishTypeDishEntities" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DishTypeEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeId" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DayTimeEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TimeName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DishEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DayTimeDishEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IsMultiple" Type="bit" Nullable="false" />
+    <Property Name="Dish_Id" Type="int" Nullable="false" />
+    <Property Name="DayTime_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DishTypeDishEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DishTypeEntity_Id" Type="int" Nullable="false" />
+    <Property Name="DishEntity_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="DishDayTimeDish">
+    <End Role="Dish" Type="FoodServiceModel.Store.DishEntities" Multiplicity="1" />
+    <End Role="DayTimeDish" Type="FoodServiceModel.Store.DayTimeDishEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dish">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DayTimeDish">
+        <PropertyRef Name="Dish_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DayTimeDayTimeDish">
+    <End Role="DayTime" Type="FoodServiceModel.Store.DayTimeEntities" Multiplicity="1" />
+    <End Role="DayTimeDish" Type="FoodServiceModel.Store.DayTimeDishEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DayTime">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DayTimeDish">
+        <PropertyRef Name="DayTime_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DishTypeEntityDishTypeDishEntity">
+    <End Role="DishTypeEntity" Type="FoodServiceModel.Store.DishTypeEntities" Multiplicity="1" />
+    <End Role="DishTypeDishEntity" Type="FoodServiceModel.Store.DishTypeDishEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DishTypeEntity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DishTypeDishEntity">
+        <PropertyRef Name="DishTypeEntity_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DishEntityDishTypeDishEntity">
+    <End Role="DishEntity" Type="FoodServiceModel.Store.DishEntities" Multiplicity="1" />
+    <End Role="DishTypeDishEntity" Type="FoodServiceModel.Store.DishTypeDishEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DishEntity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DishTypeDishEntity">
+        <PropertyRef Name="DishEntity_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FoodServiceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FoodServiceModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DishTypeEntities" EntityType="FoodServiceModel.DishTypeEntity" />
+          <EntitySet Name="DayTimeEntities" EntityType="FoodServiceModel.DayTimeEntity" />
+          <EntitySet Name="DishEntities" EntityType="FoodServiceModel.DishEntity" />
+          <EntitySet Name="DayTimeDishEntities" EntityType="FoodServiceModel.DayTimeDishEntity" />
+          <AssociationSet Name="DishDayTimeDish" Association="FoodServiceModel.DishDayTimeDish">
+            <End Role="Dish" EntitySet="DishEntities" />
+            <End Role="DayTimeDish" EntitySet="DayTimeDishEntities" />
+          </AssociationSet>
+          <AssociationSet Name="DayTimeDayTimeDish" Association="FoodServiceModel.DayTimeDayTimeDish">
+            <End Role="DayTime" EntitySet="DayTimeEntities" />
+            <End Role="DayTimeDish" EntitySet="DayTimeDishEntities" />
+          </AssociationSet>
+          <EntitySet Name="DishTypeDishEntities" EntityType="FoodServiceModel.DishTypeDishEntity" />
+          <AssociationSet Name="DishTypeEntityDishTypeDishEntity" Association="FoodServiceModel.DishTypeEntityDishTypeDishEntity">
+            <End Role="DishTypeEntity" EntitySet="DishTypeEntities" />
+            <End Role="DishTypeDishEntity" EntitySet="DishTypeDishEntities" />
+          </AssociationSet>
+          <AssociationSet Name="DishEntityDishTypeDishEntity" Association="FoodServiceModel.DishEntityDishTypeDishEntity">
+            <End Role="DishEntity" EntitySet="DishEntities" />
+            <End Role="DishTypeDishEntity" EntitySet="DishTypeDishEntities" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DishTypeEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" />
+          <Property Name="TypeId" Type="String" Nullable="false" />
+          <NavigationProperty Name="DishTypeDishEntities" Relationship="FoodServiceModel.DishTypeEntityDishTypeDishEntity" FromRole="DishTypeEntity" ToRole="DishTypeDishEntity" />
+        </EntityType>
+        <EntityType Name="DayTimeEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeName" Type="String" Nullable="false" />
+          <NavigationProperty Name="DayTimeDishes" Relationship="FoodServiceModel.DayTimeDayTimeDish" FromRole="DayTime" ToRole="DayTimeDish" />
+        </EntityType>
+        <EntityType Name="DishEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="DayTimeDishes" Relationship="FoodServiceModel.DishDayTimeDish" FromRole="Dish" ToRole="DayTimeDish" />
+          <NavigationProperty Name="DishTypeDishEntities" Relationship="FoodServiceModel.DishEntityDishTypeDishEntity" FromRole="DishEntity" ToRole="DishTypeDishEntity" />
+        </EntityType>
+        <EntityType Name="DayTimeDishEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Dish" Relationship="FoodServiceModel.DishDayTimeDish" FromRole="DayTimeDish" ToRole="Dish" />
+          <NavigationProperty Name="DayTime" Relationship="FoodServiceModel.DayTimeDayTimeDish" FromRole="DayTimeDish" ToRole="DayTime" />
+          <Property Name="IsMultiple" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="DishDayTimeDish">
+          <End Type="FoodServiceModel.DishEntity" Role="Dish" Multiplicity="1" />
+          <End Type="FoodServiceModel.DayTimeDishEntity" Role="DayTimeDish" Multiplicity="*" />
+        </Association>
+        <Association Name="DayTimeDayTimeDish">
+          <End Type="FoodServiceModel.DayTimeEntity" Role="DayTime" Multiplicity="1" />
+          <End Type="FoodServiceModel.DayTimeDishEntity" Role="DayTimeDish" Multiplicity="*" />
+        </Association>
+        <EntityType Name="DishTypeDishEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="DishTypeEntity" Relationship="FoodServiceModel.DishTypeEntityDishTypeDishEntity" FromRole="DishTypeDishEntity" ToRole="DishTypeEntity" />
+          <NavigationProperty Name="DishEntity" Relationship="FoodServiceModel.DishEntityDishTypeDishEntity" FromRole="DishTypeDishEntity" ToRole="DishEntity" />
+        </EntityType>
+        <Association Name="DishTypeEntityDishTypeDishEntity">
+          <End Type="FoodServiceModel.DishTypeEntity" Role="DishTypeEntity" Multiplicity="1" />
+          <End Type="FoodServiceModel.DishTypeDishEntity" Role="DishTypeDishEntity" Multiplicity="*" />
+        </Association>
+        <Association Name="DishEntityDishTypeDishEntity">
+          <End Type="FoodServiceModel.DishEntity" Role="DishEntity" Multiplicity="1" />
+          <End Type="FoodServiceModel.DishTypeDishEntity" Role="DishTypeDishEntity" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FoodServiceModelStoreContainer" CdmEntityContainer="FoodServiceModelContainer">
+    <EntitySetMapping Name="DishTypeEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(FoodServiceModel.DishTypeEntity)">
+        <MappingFragment StoreEntitySet="DishTypeEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DayTimeEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(FoodServiceModel.DayTimeEntity)">
+        <MappingFragment StoreEntitySet="DayTimeEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TimeName" ColumnName="TimeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DishEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(FoodServiceModel.DishEntity)">
+        <MappingFragment StoreEntitySet="DishEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DayTimeDishEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(FoodServiceModel.DayTimeDishEntity)">
+        <MappingFragment StoreEntitySet="DayTimeDishEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsMultiple" ColumnName="IsMultiple" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DishTypeDishEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(FoodServiceModel.DishTypeDishEntity)">
+        <MappingFragment StoreEntitySet="DishTypeDishEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DishDayTimeDish" TypeName="FoodServiceModel.DishDayTimeDish" StoreEntitySet="DayTimeDishEntities">
+      <EndProperty Name="Dish">
+        <ScalarProperty Name="Id" ColumnName="Dish_Id" />
+      </EndProperty>
+      <EndProperty Name="DayTimeDish">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DayTimeDayTimeDish" TypeName="FoodServiceModel.DayTimeDayTimeDish" StoreEntitySet="DayTimeDishEntities">
+      <EndProperty Name="DayTime">
+        <ScalarProperty Name="Id" ColumnName="DayTime_Id" />
+      </EndProperty>
+      <EndProperty Name="DayTimeDish">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DishTypeEntityDishTypeDishEntity" TypeName="FoodServiceModel.DishTypeEntityDishTypeDishEntity" StoreEntitySet="DishTypeDishEntities">
+      <EndProperty Name="DishTypeEntity">
+        <ScalarProperty Name="Id" ColumnName="DishTypeEntity_Id" />
+      </EndProperty>
+      <EndProperty Name="DishTypeDishEntity">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DishEntityDishTypeDishEntity" TypeName="FoodServiceModel.DishEntityDishTypeDishEntity" StoreEntitySet="DishTypeDishEntities">
+      <EndProperty Name="DishEntity">
+        <ScalarProperty Name="Id" ColumnName="DishEntity_Id" />
+      </EndProperty>
+      <EndProperty Name="DishTypeDishEntity">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

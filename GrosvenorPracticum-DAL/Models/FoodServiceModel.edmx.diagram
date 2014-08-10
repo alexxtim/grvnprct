@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bc7ebbf50c354ddb81e94c36eb3137d7" Name="Diagram1" >
+        <EntityTypeShape EntityType="FoodServiceModel.DishTypeEntity" Width="1.5" PointX="0.625" PointY="0.875" />
+        <EntityTypeShape EntityType="FoodServiceModel.DayTimeEntity" Width="1.5" PointX="5" PointY="1" />
+        <EntityTypeShape EntityType="FoodServiceModel.DishEntity" Width="1.5" PointX="2.875" PointY="2.5" />
+        <EntityTypeShape EntityType="FoodServiceModel.DayTimeDishEntity" Width="2" PointX="5" PointY="3.875" />
+        <AssociationConnector Association="FoodServiceModel.DishDayTimeDish" />
+        <AssociationConnector Association="FoodServiceModel.DayTimeDayTimeDish" />
+        <EntityTypeShape EntityType="FoodServiceModel.DishTypeDishEntity" Width="1.75" PointX="0.5" PointY="3.875" />
+        <AssociationConnector Association="FoodServiceModel.DishTypeEntityDishTypeDishEntity" />
+        <AssociationConnector Association="FoodServiceModel.DishEntityDishTypeDishEntity" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
